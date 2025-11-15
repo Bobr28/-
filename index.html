@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила нашего чата</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f1a2e, #1a2b4a);
+            color: #e0e7ff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(15, 26, 46, 0.9);
+            color: #e0e7ff;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a3a5a;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #6a93ff, #a3b9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .chat-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-icon {
+            font-size: 1.5rem;
+            color: #6a93ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .rules-section {
+            background: rgba(20, 30, 48, 0.7);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+            border-left: 5px solid #6a93ff;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .rules-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #a3b9ff;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2a3a5a;
+            text-align: center;
+        }
+        
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            border-left: 3px solid #4a6bca;
+            transition: all 0.3s ease;
+        }
+
+        .rule-item:hover {
+            background: rgba(106, 147, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .rule-item h3 {
+            color: #8ca7ff;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-icon {
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #8a9cc5;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .rules-section {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="chat-info">
+                <div class="chat-icon">💬</div>
+                <h1>Правила лучших друзей</h1>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="rules-section">
+            <h2>Наши правила</h2>
+            <div class="rule-item">
+                <h3><span class="rule-icon">🤝</span> Общаемся как друзья</h3>
+                <p>Без агрессии и оскорблений. Мы здесь, чтобы поддерживать друг друга и хорошо проводить время.</p>
+            </div>
+            <div class="rule-item">
+                <h3><span class="rule-icon">😊</span> Умеренность в стикерах</h3>
+                <p>Не флудим стеной стикеров. Хочется побомбить стикерами — есть личка.</p>
+            </div>
+            <div class="rule-item">
+                <h3><span class="rule-icon">⚖️</span> Конструктивные споры</h3>
+                <p>Не разводим срачи. Спорить можно, ругаться — нет.</p>
+            </div>
+            <div class="rule-item">
+                <h3><span class="rule-icon">🔒</span> Конфиденциальность</h3>
+                <p>Личное — остается в чате. Скрины наружу только с разрешения.</p>
+            </div>
+            <div class="rule-item">
+                <h3><span class="rule-icon">💫</span> Гибкость и понимание</h3>
+                <p>Остальное — по ситуации. Главное, чтобы было хорошо всем!</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="footer">
+        Наш дружеский чат • Создан с заботой о комфорте каждого
+    </div>
+</body>
+</html>
