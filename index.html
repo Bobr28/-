@@ -13,19 +13,32 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0f1a2e, #1a2b4a);
-            color: #e0e7ff;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            color: #333333;
             line-height: 1.6;
             min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-theme {
+            background: linear-gradient(135deg, #0f1a2e, #1a2b4a);
+            color: #e0e7ff;
         }
         
         header {
-            background: rgba(15, 26, 46, 0.9);
-            color: #e0e7ff;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333333;
             padding: 1.5rem 2rem;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             position: relative;
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme header {
+            background: rgba(15, 26, 46, 0.9);
+            color: #e0e7ff;
             border-bottom: 1px solid #2a3a5a;
         }
         
@@ -40,6 +53,12 @@
         h1 {
             font-size: 1.8rem;
             font-weight: 600;
+            background: linear-gradient(90deg, #ff7b25, #ff9e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .dark-theme h1 {
             background: linear-gradient(90deg, #6a93ff, #a3b9ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -53,6 +72,10 @@
         
         .chat-icon {
             font-size: 1.5rem;
+            color: #ff7b25;
+        }
+        
+        .dark-theme .chat-icon {
             color: #6a93ff;
         }
         
@@ -63,14 +86,19 @@
         }
         
         .rules-section {
-            background: rgba(20, 30, 48, 0.7);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
-            border-left: 5px solid #6a93ff;
+            border-left: 5px solid #ff7b25;
             backdrop-filter: blur(5px);
             transition: transform 0.3s ease;
+        }
+        
+        .dark-theme .rules-section {
+            background: rgba(20, 30, 48, 0.7);
+            border-left: 5px solid #6a93ff;
         }
         
         .rules-section:hover {
@@ -78,33 +106,53 @@
         }
         
         h2 {
-            color: #a3b9ff;
+            color: #ff7b25;
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #2a3a5a;
+            border-bottom: 1px solid #e0e0e0;
             text-align: center;
+        }
+        
+        .dark-theme h2 {
+            color: #a3b9ff;
+            border-bottom: 1px solid #2a3a5a;
         }
         
         .rule-item {
             margin-bottom: 1.5rem;
             padding: 1rem 1.5rem;
-            background: rgba(30, 41, 59, 0.5);
+            background: rgba(255, 248, 242, 0.8);
             border-radius: 10px;
-            border-left: 3px solid #4a6bca;
+            border-left: 3px solid #ff9e53;
             transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-theme .rule-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 3px solid #4a6bca;
         }
 
         .rule-item:hover {
+            background: rgba(255, 123, 37, 0.15);
+            transform: translateX(5px);
+        }
+
+        .dark-theme .rule-item:hover {
             background: rgba(106, 147, 255, 0.15);
             transform: translateX(5px);
         }
         
         .rule-item h3 {
-            color: #8ca7ff;
+            color: #e65c00;
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .dark-theme .rule-item h3 {
+            color: #8ca7ff;
         }
 
         .rule-icon {
@@ -115,8 +163,12 @@
             text-align: center;
             margin-top: 3rem;
             padding: 1.5rem;
-            color: #8a9cc5;
+            color: #666666;
             font-size: 0.9rem;
+        }
+        
+        .dark-theme .footer {
+            color: #8a9cc5;
         }
         
         @media (max-width: 768px) {
@@ -132,12 +184,130 @@
                 font-size: 1.5rem;
             }
         }
-.linksss { 
-    color: #00BFFF
-}
+        .linksss { 
+            color: #ff7b25;
+        }
+        
+        .dark-theme .linksss {
+            color: #6a93ff;
+        }
+        
+        /* Стили для добавленных функций */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: rgba(255, 123, 37, 0.15);
+            color: #e65c00;
+            border: 1px solid #ff9e53;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .dark-theme .control-btn {
+            background: rgba(106, 147, 255, 0.2);
+            color: #a3b9ff;
+            border: 1px solid #4a6bca;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 123, 37, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .dark-theme .control-btn:hover {
+            background: rgba(106, 147, 255, 0.4);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 123, 37, 0.15);
+            border: 1px solid #ff9e53;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dark-theme .theme-toggle {
+            background: rgba(106, 147, 255, 0.2);
+            border: 1px solid #4a6bca;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 123, 37, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .dark-theme .theme-toggle:hover {
+            background: rgba(106, 147, 255, 0.4);
+        }
+        
+        .theme-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* Вертикальный индикатор прокрутки слева */
+        .progress-container {
+            width: 6px;
+            height: 100vh;
+            background: rgba(224, 224, 224, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .dark-theme .progress-container {
+            background: rgba(42, 58, 90, 0.5);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            background: linear-gradient(to bottom, #ff7b25, #ff9e53);
+            height: 0%;
+            transition: height 0.3s ease;
+            border-radius: 0 0 3px 3px;
+        }
+        
+        .dark-theme .progress-bar {
+            background: linear-gradient(to bottom, #6a93ff, #a3b9ff);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ff7b25;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .dark-theme .confetti {
+            background-color: #6a93ff;
+        }
     </style>
 </head>
 <body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
     <header>
         <div class="header-content">
             <div class="chat-info">
@@ -148,6 +318,12 @@
     </header>
     
     <div class="container">
+        <div class="controls">
+            <button class="control-btn" id="expandAll">Развернуть все</button>
+            <button class="control-btn" id="collapseAll">Свернуть все</button>
+            <button class="control-btn" id="celebrate">Праздник!</button>
+        </div>
+        
         <section class="rules-section">
             <h2>Наши правила</h2>
             <div class="rule-item">
@@ -175,9 +351,102 @@
 
     <div class="footer">
         Наш дружеский чат • Создан с заботой о комфорте каждого
-<p>
-  <a class="linksss" href="https://krolcatbobr.vercel.app/">Сайт Крольчана</a>
-</p>
+        <p>
+            <a class="linksss" href="https://krolcatbobr.vercel.app/">Сайт Крольчана</a>
+        </p>
     </div>
+    
+    <div class="theme-toggle" id="themeToggle">
+        <span class="theme-icon">🌙</span>
+    </div>
+
+    <script>
+        // Функция индикатора прокрутки (вертикальный слева)
+        window.addEventListener('scroll', function() {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+            document.getElementById('progressBar').style.height = scrollPercent + '%';
+        });
+        
+        // Функция развернуть/свернуть все правила
+        document.getElementById('expandAll').addEventListener('click', function() {
+            const ruleItems = document.querySelectorAll('.rule-item p');
+            ruleItems.forEach(p => {
+                p.style.display = 'block';
+            });
+        });
+        
+        document.getElementById('collapseAll').addEventListener('click', function() {
+            const ruleItems = document.querySelectorAll('.rule-item p');
+            ruleItems.forEach(p => {
+                p.style.display = 'none';
+            });
+        });
+        
+        // Функция переключения темы
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            const themeIcon = document.querySelector('.theme-icon');
+            themeIcon.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+        });
+        
+        // Функция праздничного конфетти
+        document.getElementById('celebrate').addEventListener('click', function() {
+            createConfetti();
+        });
+        
+        function createConfetti() {
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            const colors = isDarkTheme 
+                ? ['#6a93ff', '#4a6bca', '#a3b9ff', '#8ca7ff', '#5a7bff', '#3a5bff']
+                : ['#ff7b25', '#ff9e53', '#ffb347', '#ffcc5c', '#ffd166', '#ffdc73'];
+            
+            const confettiCount = 150;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(confetti);
+                
+                // Анимация падения
+                const animation = confetti.animate([
+                    { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: 2000 + Math.random() * 3000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                // Удаление элемента после анимации
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+        
+        // Инициализация - сворачиваем правила при загрузке
+        window.addEventListener('DOMContentLoaded', function() {
+            const ruleItems = document.querySelectorAll('.rule-item p');
+            ruleItems.forEach(p => {
+                p.style.display = 'none';
+            });
+        });
+
+        // Функция для разворачивания/сворачивания правил по клику
+        document.querySelectorAll('.rule-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const p = this.querySelector('p');
+                if (p.style.display === 'none') {
+                    p.style.display = 'block';
+                } else {
+                    p.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
