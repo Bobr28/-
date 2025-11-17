@@ -12,6 +12,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Убираем стандартное выделение при касании на мобильных */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Разрешаем выделение текста только для параграфов */
+        p {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
         body {
             background: linear-gradient(135deg, #ffffff, #f8f9fa);
             color: #333333;
@@ -129,6 +147,8 @@
             border-left: 3px solid #ff9e53;
             transition: all 0.3s ease;
             cursor: pointer;
+            /* Убираем стандартное выделение */
+            outline: none;
         }
 
         .dark-theme .rule-item {
@@ -158,6 +178,11 @@
         .dark-theme .rule-item:active {
             background: rgba(106, 147, 255, 0.15);
             transform: translateX(5px);
+        }
+        
+        /* Убираем стандартное выделение при фокусе */
+        .rule-item:focus {
+            outline: none;
         }
         
         .rule-item h3 {
@@ -227,6 +252,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            /* Убираем стандартное выделение */
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
         }
         
         .dark-theme .control-btn {
@@ -257,6 +285,11 @@
             background: rgba(106, 147, 255, 0.4);
         }
         
+        /* Убираем стандартное выделение при фокусе */
+        .control-btn:focus {
+            outline: none;
+        }
+        
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -272,6 +305,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 100;
+            /* Убираем стандартное выделение */
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
         }
         
         .dark-theme .theme-toggle {
@@ -299,6 +335,11 @@
         
         .dark-theme .theme-toggle:active {
             background: rgba(106, 147, 255, 0.4);
+        }
+        
+        /* Убираем стандартное выделение при фокусе */
+        .theme-toggle:focus {
+            outline: none;
         }
         
         .theme-icon {
