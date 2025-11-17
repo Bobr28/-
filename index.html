@@ -101,8 +101,11 @@
             border-left: 5px solid #6a93ff;
         }
         
-        .rules-section:hover {
-            transform: translateY(-5px);
+        /* Исправление hover-эффекта для мобильных устройств */
+        @media (hover: hover) and (pointer: fine) {
+            .rules-section:hover {
+                transform: translateY(-5px);
+            }
         }
         
         h2 {
@@ -133,12 +136,26 @@
             border-left: 3px solid #4a6bca;
         }
 
-        .rule-item:hover {
+        /* Исправление hover-эффекта для мобильных устройств */
+        @media (hover: hover) and (pointer: fine) {
+            .rule-item:hover {
+                background: rgba(255, 123, 37, 0.15);
+                transform: translateX(5px);
+            }
+
+            .dark-theme .rule-item:hover {
+                background: rgba(106, 147, 255, 0.15);
+                transform: translateX(5px);
+            }
+        }
+        
+        /* Активное состояние для мобильных устройств */
+        .rule-item:active {
             background: rgba(255, 123, 37, 0.15);
             transform: translateX(5px);
         }
 
-        .dark-theme .rule-item:hover {
+        .dark-theme .rule-item:active {
             background: rgba(106, 147, 255, 0.15);
             transform: translateX(5px);
         }
@@ -218,12 +235,25 @@
             border: 1px solid #4a6bca;
         }
         
-        .control-btn:hover {
+        /* Исправление hover-эффекта для мобильных устройств */
+        @media (hover: hover) and (pointer: fine) {
+            .control-btn:hover {
+                background: rgba(255, 123, 37, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            .dark-theme .control-btn:hover {
+                background: rgba(106, 147, 255, 0.4);
+            }
+        }
+        
+        /* Активное состояние для мобильных устройств */
+        .control-btn:active {
             background: rgba(255, 123, 37, 0.3);
             transform: translateY(-2px);
         }
         
-        .dark-theme .control-btn:hover {
+        .dark-theme .control-btn:active {
             background: rgba(106, 147, 255, 0.4);
         }
         
@@ -249,12 +279,25 @@
             border: 1px solid #4a6bca;
         }
         
-        .theme-toggle:hover {
+        /* Исправление hover-эффекта для мобильных устройств */
+        @media (hover: hover) and (pointer: fine) {
+            .theme-toggle:hover {
+                background: rgba(255, 123, 37, 0.3);
+                transform: scale(1.1);
+            }
+            
+            .dark-theme .theme-toggle:hover {
+                background: rgba(106, 147, 255, 0.4);
+            }
+        }
+        
+        /* Активное состояние для мобильных устройств */
+        .theme-toggle:active {
             background: rgba(255, 123, 37, 0.3);
             transform: scale(1.1);
         }
         
-        .dark-theme .theme-toggle:hover {
+        .dark-theme .theme-toggle:active {
             background: rgba(106, 147, 255, 0.4);
         }
         
