@@ -442,91 +442,164 @@
     </div>
 
     <script>
-        // Функция индикатора прокрутки (вертикальный слева)
-        window.addEventListener('scroll', function() {
+        // ---- Cookie helpers ----
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days || 365) * 24 * 60 * 60 * 1000);
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires.toUTCString() + '; path=/';
+        }
+
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+
+        function deleteCookie(name) {
+            setCookie(name, '', -1);
+        }
+
+        // ---- State management ----
+        const STATE_COOKIE = 'chatState';
+
+        function saveState(state) {
+            try {
+                setCookie(STATE_COOKIE, JSON.stringify(state), 365);
+            } catch (e) {
+                console.error('Не удалось сохранить состояние в куки', e);
+            }
+        }
+
+        function loadState() {
+            const raw = getCookie(STATE_COOKIE);
+            if (!raw) return null;
+            try {
+                return JSON.parse(raw);
+            } catch (e) {
+                console.warn('Ошибка парсинга состояния из куки, удаляю куку');
+                deleteCookie(STATE_COOKIE);
+                return null;
+            }
+        }
+
+        // ---- Progress bar (fix: guard against zero division) ----
+        function updateProgressBar() {
             const winHeight = window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.pageYOffset;
-            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+            const denom = Math.max(docHeight - winHeight, 1);
+            let scrollPercent = (scrollTop / denom) * 100;
+            scrollPercent = Math.max(0, Math.min(100, scrollPercent));
             document.getElementById('progressBar').style.height = scrollPercent + '%';
-        });
-        
-        // Функция развернуть/свернуть все правила
-        document.getElementById('expandAll').addEventListener('click', function() {
-            const ruleItems = document.querySelectorAll('.rule-item p');
-            ruleItems.forEach(p => {
-                p.style.display = 'block';
-            });
-        });
-        
-        document.getElementById('collapseAll').addEventListener('click', function() {
-            const ruleItems = document.querySelectorAll('.rule-item p');
-            ruleItems.forEach(p => {
-                p.style.display = 'none';
-            });
-        });
-        
-        // Функция переключения темы
-        document.getElementById('themeToggle').addEventListener('click', function() {
-            document.body.classList.toggle('dark-theme');
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+        window.addEventListener('resize', updateProgressBar);
+
+        // ---- UI helpers ----
+        function setTheme(isDark, save = true) {
+            if (isDark) document.body.classList.add('dark-theme'); else document.body.classList.remove('dark-theme');
             const themeIcon = document.querySelector('.theme-icon');
-            themeIcon.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+            if (themeIcon) themeIcon.textContent = isDark ? '☀️' : '🌙';
+            if (save) persistCurrentState();
+        }
+
+        function persistCurrentState() {
+            const expanded = Array.from(document.querySelectorAll('.rule-item p')).map(p => (getComputedStyle(p).display !== 'none'));
+            const state = {
+                darkTheme: document.body.classList.contains('dark-theme'),
+                expanded
+            };
+            saveState(state);
+        }
+
+        // ---- Expand/collapse controls ----
+        function setAllExpanded(expand) {
+            const ruleItems = document.querySelectorAll('.rule-item p');
+            ruleItems.forEach(p => {
+                p.style.display = expand ? 'block' : 'none';
+            });
+            persistCurrentState();
+        }
+
+        document.getElementById('expandAll').addEventListener('click', function() {
+            setAllExpanded(true);
         });
-        
-        // Функция праздничного конфетти
+
+        document.getElementById('collapseAll').addEventListener('click', function() {
+            setAllExpanded(false);
+        });
+
+        // ---- Theme toggle ----
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const isDark = !document.body.classList.contains('dark-theme');
+            setTheme(isDark);
+        });
+
+        // ---- Celebrate/confetti ----
         document.getElementById('celebrate').addEventListener('click', function() {
             createConfetti();
         });
-        
+
         function createConfetti() {
             const isDarkTheme = document.body.classList.contains('dark-theme');
             const colors = isDarkTheme 
                 ? ['#6a93ff', '#4a6bca', '#a3b9ff', '#8ca7ff', '#5a7bff', '#3a5bff']
                 : ['#ff7b25', '#ff9e53', '#ffb347', '#ffcc5c', '#ffd166', '#ffdc73'];
-            
-            const confettiCount = 150;
-            
+
+            const confettiCount = 120;
+
             for (let i = 0; i < confettiCount; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.top = '-10px';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
                 document.body.appendChild(confetti);
-                
-                // Анимация падения
+
                 const animation = confetti.animate([
-                    { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: 'translateY(' + (window.innerHeight + 100) + 'px) rotate(' + (Math.random() * 720) + 'deg)', opacity: 0 }
                 ], {
                     duration: 2000 + Math.random() * 3000,
                     easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
                 });
-                
-                // Удаление элемента после анимации
+
                 animation.onfinish = () => confetti.remove();
             }
         }
-        
-        // Инициализация - сворачиваем правила при загрузке
-        window.addEventListener('DOMContentLoaded', function() {
-            const ruleItems = document.querySelectorAll('.rule-item p');
-            ruleItems.forEach(p => {
-                p.style.display = 'none';
+
+        // ---- Click-to-toggle for each rule ----
+        document.querySelectorAll('.rule-item').forEach((item, index) => {
+            item.addEventListener('click', function(e) {
+                // Prevent toggling when clicking buttons inside (if any)
+                if (e.target.closest('.control-btn')) return;
+                const p = this.querySelector('p');
+                if (!p) return;
+                const isHidden = getComputedStyle(p).display === 'none';
+                p.style.display = isHidden ? 'block' : 'none';
+                persistCurrentState();
             });
         });
 
-        // Функция для разворачивания/сворачивания правил по клику
-        document.querySelectorAll('.rule-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const p = this.querySelector('p');
-                if (p.style.display === 'none') {
-                    p.style.display = 'block';
-                } else {
-                    p.style.display = 'none';
-                }
-            });
+        // ---- Initialization: apply saved state or defaults ----
+        window.addEventListener('DOMContentLoaded', function() {
+            // Apply saved state
+            const state = loadState();
+            const paragraphs = document.querySelectorAll('.rule-item p');
+            if (state && Array.isArray(state.expanded) && state.expanded.length === paragraphs.length) {
+                paragraphs.forEach((p, i) => {
+                    p.style.display = state.expanded[i] ? 'block' : 'none';
+                });
+            } else {
+                // Default: collapsed
+                paragraphs.forEach(p => p.style.display = 'none');
+            }
+
+            setTheme(Boolean(state && state.darkTheme), false);
+
+            // Update progress bar initially
+            updateProgressBar();
         });
     </script>
 </body>
